@@ -1,7 +1,6 @@
 import {
   Schema,
 } from 'mongoose';
-import Car from '../Domains/Car';
 import ICar from '../Interfaces/ICar';
 import AbstractODM from './AbstractODM';
 

@@ -1,6 +1,7 @@
 import {
   Schema,
 } from 'mongoose';
+import Car from '../Domains/Car';
 import ICar from '../Interfaces/ICar';
 import AbstractODM from './AbstractODM';
 
@@ -16,6 +17,9 @@ class CarODM extends AbstractODM<ICar> {
       seatsQty: { type: Number, required: true },
     });
     super(schema, 'Car');
+  }
+  public async findById(id: string): Promise<ICar | null> {
+    return this.model.findOne({ _id: id });
   }
 }
 

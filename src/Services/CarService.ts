@@ -33,6 +33,14 @@ class CarService {
     if (!showCarById) throw new HttpException(404, 'Car not found');
     return this.createCarDomain(showCarById);
   }
+
+  async findByIdAndUpdate(id: string, car: ICar) {
+    const carODM = new CarODM();
+    const carUpdate = await carODM.update(id, car);
+
+    if (!carUpdate) throw new HttpException(404, 'Car not found');
+    return this.createCarDomain(carUpdate);
+  }
 }
 
 export default CarService;

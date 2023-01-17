@@ -1,4 +1,3 @@
-import { isValidObjectId } from 'mongoose';
 import Car from '../Domains/Car';
 import HttpException from '../exceptions/HttpException';
 import ICar from '../Interfaces/ICar';
@@ -25,8 +24,6 @@ class CarService {
   }
 
   async findById(id: string) {
-    if (!isValidObjectId(id)) throw new HttpException(422, 'Invalid mongo id');
-
     const carODM = new CarODM();
     const showCarById = await carODM.findById(id);
     

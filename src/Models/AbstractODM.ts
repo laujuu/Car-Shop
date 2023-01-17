@@ -24,6 +24,11 @@ abstract class AbstractODM<T> {
     return this._model.find();
   }
 
+  public async findById(id: string): Promise<T | null> {
+    if (!isValidObjectId(id)) throw new HttpException(422, 'Invalid mongo id');
+    return this.model.findOne({ _id: id });
+  }
+
   public async update(_id: string, obj: T): Promise<T | null> {
     if (!isValidObjectId(_id)) throw new HttpException(422, 'Invalid mongo id');
     return this._model.findByIdAndUpdate(

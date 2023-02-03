@@ -60,6 +60,17 @@ class CarController {
       this.next(error);
     }
   }
+
+  public async findByIdAndDelete() {
+    const { id } = this.req.params;
+    try {
+      await this.service.findByIdAndDelete(id);
+
+      return this.res.status(200).end();
+    } catch (error) {
+      this.next(error);
+    }
+  }
 }
 
 export default CarController;

@@ -3,6 +3,8 @@ import HttpException from '../exceptions/HttpException';
 import ICar from '../Interfaces/ICar';
 import CarODM from '../Models/CarODM';
 
+const notFound = 'Car not found';
+
 class CarService {
   private createCarDomain(car: ICar | null): Car | null {
     if (car) {
@@ -27,7 +29,7 @@ class CarService {
     const carODM = new CarODM();
     const showCarById = await carODM.findById(id);
     
-    if (!showCarById) throw new HttpException(404, 'Car not found');
+    if (!showCarById) throw new HttpException(404, notFound);
     return this.createCarDomain(showCarById);
   }
 
@@ -35,8 +37,16 @@ class CarService {
     const carODM = new CarODM();
     const carUpdate = await carODM.update(id, car);
 
-    if (!carUpdate) throw new HttpException(404, 'Car not found');
+    if (!carUpdate) throw new HttpException(404, notFound);
     return this.createCarDomain(carUpdate);
+  }
+
+  async findByIdAndDelete(id: string) {
+    const carODM = new CarODM();
+    const carDelete = await carODM.delete(id);
+
+    if (!carDelete) throw new HttpException(404, notFound);
+    return this.createCarDomain(carDelete);
   }
 }
 
